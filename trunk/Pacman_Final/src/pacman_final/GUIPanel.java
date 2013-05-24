@@ -84,7 +84,7 @@ public class GUIPanel extends JPanel implements KeyListener{
         if(p.getDirection() == Direction.UP)
         {
             //System.out.println("Got to if statement");
-            if(grid[i][j - 1].getSpriteContained() == empty)
+            if(grid[i][j - 1].getSpriteContained() == empty && grid[i - 1][j - 2].getSpriteContained() == empty && grid[i][j - 2].getSpriteContained() == empty)
             {
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(p);
@@ -93,7 +93,7 @@ public class GUIPanel extends JPanel implements KeyListener{
         }
         else if(p.getDirection() == Direction.DOWN)
         {
-            if((grid[i][j + 1].getSpriteContained() == empty) && (j + 1 != grid[0].length - 3))
+            if((grid[i][j + 1].getSpriteContained() == empty) && (j + 1 != grid[0].length - 3) && grid[i - 1][j + 1].getSpriteContained() == empty)
             {
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(p);
@@ -102,7 +102,7 @@ public class GUIPanel extends JPanel implements KeyListener{
         }
         else if(p.getDirection() == Direction.LEFT)
         {
-            if(grid[i - 1][j].getSpriteContained() == empty)
+            if(grid[i - 1][j].getSpriteContained() == empty && grid[i - 2][j].getSpriteContained() == empty && grid[i - 2][j - 1].getSpriteContained() == empty)
             {
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(p);
@@ -111,7 +111,7 @@ public class GUIPanel extends JPanel implements KeyListener{
         }
         else if((p.getDirection() == Direction.RIGHT) && (i + 1 != grid.length - 3))
         {
-            if(grid[i + 1][j].getSpriteContained() == empty)
+            if(grid[i + 1][j].getSpriteContained() == empty && grid[i + 1][j - 1].getSpriteContained() == empty)
             {
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(p);
@@ -126,8 +126,8 @@ public class GUIPanel extends JPanel implements KeyListener{
         @Override
         public void run() {
             updateThreadRun = true;
-            //SoundEffects.playEntry();
-            //pause(5000);
+            SoundEffects.playEntry();
+            pause(5000);
             while(true)
             {
                 pause(100);
