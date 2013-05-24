@@ -169,10 +169,7 @@ public class GUIPanel extends JPanel implements KeyListener{
         //This is the useful method.
         if(e.getKeyCode() == KeyEvent.VK_UP)
         {
-            if(grid[pacman.getxPos()/7][pacman.getyPos()/7 - 1].getSpriteContained() == empty)
-            {
-                pacman.setDirection(Direction.UP);
-            }
+            pacman.setDirection(Direction.UP);
             //System.out.println("up");
         }
         else if(e.getKeyCode() == KeyEvent.VK_DOWN)
