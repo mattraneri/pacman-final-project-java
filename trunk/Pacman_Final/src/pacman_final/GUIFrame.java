@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 public class GUIFrame extends JFrame{
     public GUIFrame()
     {
-        this.setSize(500, 500);
+        this.setSize(500, 498);
         this.setResizable(false);
         this.setTitle("Pacman- Matt and Harry Final Project");
         this.setLocationRelativeTo(null);

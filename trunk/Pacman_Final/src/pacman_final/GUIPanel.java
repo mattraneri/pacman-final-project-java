@@ -32,7 +32,7 @@ public class GUIPanel extends JPanel implements KeyListener{
         {
             for(int j = 0; j < grid[0].length; j++)
             {
-                grid[i][j] = new Tile(i*7+12, j*7+7);//Make each one only a fraction of the sprite's size (14px)
+                grid[i][j] = new Tile(i*7+8, j*7);//Make each one only a fraction of the sprite's size (14px)
                 //the 5 is for the size of the collision grid mesh thing.
                 //the pacman images are meant to be going out of bounds of the grid space.
                 //So this is okay
@@ -41,12 +41,12 @@ public class GUIPanel extends JPanel implements KeyListener{
         }
         for(int i = 0; i < grid.length; i++)
         {
-            grid[i][0].setSpriteContained(new CollisionWall());
-            grid[i][grid[0].length - 1].setSpriteContained(new CollisionWall());
+            grid[i][0].setSpriteContained(new CollisionWall(false));
+            grid[i][grid[0].length - 1].setSpriteContained(new CollisionWall(true));
         }
         for(int i = 0; i < grid[0].length; i++)
         {
-            grid[0][i].setSpriteContained(new CollisionWall());
+            grid[0][i].setSpriteContained(new CollisionWall(false));
             grid[grid.length - 1][i].setSpriteContained(new CollisionWall());
         }
         pacman = new Pacman();
