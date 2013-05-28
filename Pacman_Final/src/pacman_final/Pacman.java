@@ -4,6 +4,7 @@
  */
 package pacman_final;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.imageio.ImageIO;
@@ -50,6 +51,8 @@ public class Pacman extends Sprite{
     public void draw(Graphics g, int xPos, int yPos)
     {//The minus 7 is for the grid size- the center of the grid space must be in the center of the sprite
         g.drawImage(sprite, xPos - 7, yPos- 7, null);
+        g.setColor(Color.RED);
+        g.drawRect(xPos, yPos, 7, 7);
         super.setxPos(xPos);
         super.setyPos(yPos);
     }
