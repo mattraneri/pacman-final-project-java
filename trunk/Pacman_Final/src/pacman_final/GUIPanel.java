@@ -19,6 +19,8 @@ public class GUIPanel extends JPanel implements KeyListener{
     Tile[][] grid = new Tile[70][68]; //504 504 screen rz.
     Pacman pacman = null;
     boolean updateThreadRun = false;
+    int pacman1;
+    int pacman2;
     EmptySprite empty = new EmptySprite();
     //Image pacSprite;// = ImageIO.read(getClass().getResource("/pacman_sprites/pac-closed.png").toURI().toURL());
     
@@ -84,38 +86,46 @@ public class GUIPanel extends JPanel implements KeyListener{
         if(p.getDirection() == Direction.UP)
         {
             //System.out.println("Got to if statement");
-            if(grid[i][j - 1].getSpriteContained() == empty && grid[i - 1][j - 2].getSpriteContained() == empty && grid[i][j - 2].getSpriteContained() == empty)
+            if(grid[i - 1][j - 2].getSpriteContained() == empty && grid[i][j - 2].getSpriteContained() == empty)
             {
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(p);
                 p.update();
+                pacman1 = i;
+                pacman2 = j - 1;
             }
         }
         else if(p.getDirection() == Direction.DOWN)
         {
-            if((grid[i][j + 1].getSpriteContained() == empty) && (j + 1 != grid[0].length - 3) && grid[i - 1][j + 1].getSpriteContained() == empty)
+            if((grid[i][j + 1].getSpriteContained() == empty) && (j + 1 != grid[0].length - 2) && grid[i - 1][j + 1].getSpriteContained() == empty)
             {
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(p);
                 p.update();
+                pacman1 = i;
+                pacman2 = j + 1;
             }
         }
         else if(p.getDirection() == Direction.LEFT)
         {
-            if(grid[i - 1][j].getSpriteContained() == empty && grid[i - 2][j].getSpriteContained() == empty && grid[i - 2][j - 1].getSpriteContained() == empty)
+            if(grid[i - 2][j].getSpriteContained() == empty && (i - 2 != -1) && grid[i - 2][j - 1].getSpriteContained() == empty)
             {
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(p);
                 p.update();
+                pacman1 = i - 1;
+                pacman2 = j;
             }
         }
-        else if((p.getDirection() == Direction.RIGHT) && (i + 1 != grid.length - 3))
+        else if((p.getDirection() == Direction.RIGHT))
         {
-            if(grid[i + 1][j].getSpriteContained() == empty && grid[i + 1][j - 1].getSpriteContained() == empty)
+            if(grid[i + 1][j].getSpriteContained() == empty && (i + 1 != grid.length - 2) && grid[i + 1][j - 1].getSpriteContained() == empty)
             {
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(p);
                 p.update();
+                pacman1 = i + 1;
+                pacman2 = j;
             }
         }
     }
@@ -196,9 +206,9 @@ public class GUIPanel extends JPanel implements KeyListener{
         {
             System.exit(0);
         }
-        else if(e.getKeyCode() == KeyEvent.VK_P)
+        else if(e.getKeyCode() == KeyEvent.VK_P) //For debugging
         {
-            System.out.println(pacman.getxPos() + " " + pacman.getyPos());
+            System.out.println(pacman1 + " " + pacman2);
         }
     }
 
