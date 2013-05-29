@@ -11,7 +11,11 @@ package pacman_final;
 public class BoardMethods {
     public static void setup(Tile[][] grid)
     {
-        drawBox(grid, 10, 20, 15, 25);
+        drawBox(grid, 3, 13, 3, 13);
+        drawBox(grid, 15, 28, 3, 13);
+        drawBox(grid, 30, 40, 0, 13);
+        drawBox(grid, 42, 55, 3, 13);
+        drawBox(grid, 57, 66, 3, 13);
     }
     /*
      * Precondition: The p1 and p2 variables must be in the top left corner of the desired
