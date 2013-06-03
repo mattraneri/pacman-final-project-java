@@ -51,7 +51,7 @@ public class GUIPanel extends JPanel implements KeyListener{
             grid[grid.length - 1][i].setSpriteContained(new CollisionWall());
         }
         pacman = new Pacman();
-        grid[grid.length / 2][60].setSpriteContained(pacman);
+        grid[35][54].setSpriteContained(pacman);
         BoardMethods.setup(grid);
         //This is just for testing the width and height of the entire thing
         
