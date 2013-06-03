@@ -20,9 +20,8 @@ public class GUIPanel extends JPanel implements KeyListener{
     Pacman pacman = null;
     int pacDir = -1;
     boolean updateThreadRun = false;
-    int pacman1;
-    int pacman2;
     EmptySprite empty = new EmptySprite();
+    RedGhost blinky;
     //Image pacSprite;// = ImageIO.read(getClass().getResource("/pacman_sprites/pac-closed.png").toURI().toURL());
     
     public GUIPanel()
@@ -51,7 +50,9 @@ public class GUIPanel extends JPanel implements KeyListener{
             grid[grid.length - 1][i].setSpriteContained(new CollisionWall());
         }
         pacman = new Pacman();
+        blinky = new RedGhost();
         grid[35][54].setSpriteContained(pacman);
+        grid[grid.length / 2][grid[0].length / 2].setSpriteContained(blinky);
         BoardMethods.setup(grid);
         //This is just for testing the width and height of the entire thing
         
@@ -78,7 +79,19 @@ public class GUIPanel extends JPanel implements KeyListener{
                 {
                     movePac((Pacman)(p), i, j);
                 }
+                else if(grid[i][j].getX() == blinky.getxPos() && grid[i][j].getY() == blinky.getyPos())
+                {
+                    moveBlinky((RedGhost)(p), i, j);
+                }
             }
+        }
+    }
+    
+    public void moveBlinky(RedGhost r, int i, int j)
+    {
+        if(r.getDirection() == Direction.UP)
+        {
+            //CONTINUE HERE MATT!! =D
         }
     }
     
@@ -92,9 +105,7 @@ public class GUIPanel extends JPanel implements KeyListener{
                 pacman.setDirection(Direction.UP);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(p);
-                p.update();
-                pacman1 = i;
-                pacman2 = j - 1;
+                pacman.update();
             }
         }
         else if(pacDir == Direction.DOWN)
@@ -104,9 +115,7 @@ public class GUIPanel extends JPanel implements KeyListener{
                 pacman.setDirection(Direction.DOWN);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(p);
-                p.update();
-                pacman1 = i;
-                pacman2 = j + 1;
+                pacman.update();
             }
         }
         else if(pacDir == Direction.LEFT)
@@ -116,9 +125,7 @@ public class GUIPanel extends JPanel implements KeyListener{
                 pacman.setDirection(Direction.LEFT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(p);
-                p.update();
-                pacman1 = i - 1;
-                pacman2 = j;
+                pacman.update();
             }
         }
         else if((pacDir == Direction.RIGHT))
@@ -128,9 +135,7 @@ public class GUIPanel extends JPanel implements KeyListener{
                 pacman.setDirection(Direction.RIGHT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(p);
-                p.update();
-                pacman1 = i + 1;
-                pacman2 = j;
+                pacman.update();
             }
         }
     }
@@ -217,7 +222,7 @@ public class GUIPanel extends JPanel implements KeyListener{
         }
         else if(e.getKeyCode() == KeyEvent.VK_P) //For debugging
         {
-            System.out.println(pacman1 + " " + pacman2);
+            System.out.println(pacman.getxPos() + " " + pacman.getyPos());
         }
     }
 
