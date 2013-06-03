@@ -18,6 +18,7 @@ public class GUIPanel extends JPanel implements KeyListener{
     
     Tile[][] grid = new Tile[70][68]; //504 504 screen rz.
     Pacman pacman = null;
+    int pacDir = -1;
     boolean updateThreadRun = false;
     int pacman1;
     int pacman2;
@@ -83,11 +84,12 @@ public class GUIPanel extends JPanel implements KeyListener{
     
     public void movePac(Pacman p, int i, int j)
     {
-        if(p.getDirection() == Direction.UP)
+        if(pacDir == Direction.UP)
         {
             //System.out.println("Got to if statement");
             if(grid[i - 1][j - 2].getSpriteContained() == empty && grid[i][j - 2].getSpriteContained() == empty)
             {
+                pacman.setDirection(Direction.UP);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(p);
                 p.update();
@@ -95,10 +97,11 @@ public class GUIPanel extends JPanel implements KeyListener{
                 pacman2 = j - 1;
             }
         }
-        else if(p.getDirection() == Direction.DOWN)
+        else if(pacDir == Direction.DOWN)
         {
             if((grid[i][j + 1].getSpriteContained() == empty) && (j + 1 != grid[0].length - 2) && grid[i - 1][j + 1].getSpriteContained() == empty)
             {
+                pacman.setDirection(Direction.DOWN);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(p);
                 p.update();
@@ -106,10 +109,11 @@ public class GUIPanel extends JPanel implements KeyListener{
                 pacman2 = j + 1;
             }
         }
-        else if(p.getDirection() == Direction.LEFT)
+        else if(pacDir == Direction.LEFT)
         {
             if(grid[i - 2][j].getSpriteContained() == empty && (i - 2 != -1) && grid[i - 2][j - 1].getSpriteContained() == empty)
             {
+                pacman.setDirection(Direction.LEFT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(p);
                 p.update();
@@ -117,10 +121,11 @@ public class GUIPanel extends JPanel implements KeyListener{
                 pacman2 = j;
             }
         }
-        else if((p.getDirection() == Direction.RIGHT))
+        else if((pacDir == Direction.RIGHT))
         {
             if(grid[i + 1][j].getSpriteContained() == empty && (i + 1 != grid.length - 2) && grid[i + 1][j - 1].getSpriteContained() == empty)
             {
+                pacman.setDirection(Direction.RIGHT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(p);
                 p.update();
@@ -179,22 +184,26 @@ public class GUIPanel extends JPanel implements KeyListener{
         //This is the useful method.
         if(e.getKeyCode() == KeyEvent.VK_UP)
         {
-            pacman.setDirection(Direction.UP);
+            pacDir = Direction.UP;
+            //pacman.setDirection(Direction.UP);
             //System.out.println("up");
         }
         else if(e.getKeyCode() == KeyEvent.VK_DOWN)
         {
-            pacman.setDirection(Direction.DOWN);
+            pacDir = Direction.DOWN;
+            //pacman.setDirection(Direction.DOWN);
             //System.out.println("down");
         }
         else if(e.getKeyCode() == KeyEvent.VK_LEFT)
         {
-            pacman.setDirection(Direction.LEFT);
+            pacDir = Direction.LEFT;
+            //pacman.setDirection(Direction.LEFT);
             //System.out.println("left");
         }
         else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
         {
-            pacman.setDirection(Direction.RIGHT);
+            pacDir = Direction.RIGHT;
+            //pacman.setDirection(Direction.RIGHT);
             //System.out.println("right");
         }
         else if(e.getKeyCode() == KeyEvent.VK_SPACE && updateThreadRun == false)
