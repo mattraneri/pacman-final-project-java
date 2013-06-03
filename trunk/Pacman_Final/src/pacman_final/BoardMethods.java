@@ -11,11 +11,41 @@ package pacman_final;
 public class BoardMethods {
     public static void setup(Tile[][] grid)
     {
+        //I hate this part.
         drawBox(grid, 3, 13, 3, 13);
         drawBox(grid, 15, 28, 3, 13);
         drawBox(grid, 30, 40, 0, 13);
         drawBox(grid, 42, 55, 3, 13);
         drawBox(grid, 57, 66, 3, 13);
+        drawBox(grid, 3, 13, 15, 20);
+        drawBox(grid, 0, 13, 22, 33);
+        drawBox(grid, 15, 17, 15, 33);
+        drawBox(grid, 15, 32, 23, 25);
+        drawBox(grid, 19, 50, 15, 21);
+        drawBox(grid, 52, 54, 15, 33);
+        drawBox(grid, grid.length - 32, grid.length - 16, 23, 25);
+        drawBox(grid, 34, 36, 21, 25);
+        drawBox(grid, 19, 50, 27, 30);
+        drawBox(grid, grid.length - 14, grid.length - 1, 22, 33);
+        drawBox(grid, grid.length - 14, grid.length - 4, 15, 20);
+        //for the bottom half we can just invert the positions using grid.length...
+        //Bottom half start...
+        drawBox(grid, grid[0].length - 12, grid[0].length - 2, grid[0].length - 14, grid[0].length - 4);
+        drawBox(grid, grid[0].length - 12 - 15, grid[0].length - 14, grid[0].length - 2, grid[0].length - 4);
+        drawBox(grid, 30, 40, 0, 13);
+        drawBox(grid, 42, 55, 3, 13);
+        drawBox(grid, 57, 66, 3, 13);
+        drawBox(grid, 3, 13, 15, 20);
+        drawBox(grid, 0, 13, 22, 33);
+        drawBox(grid, 15, 17, 15, 33);
+        drawBox(grid, 15, 32, 23, 25);
+        drawBox(grid, 19, 50, 15, 21);
+        drawBox(grid, 52, 54, 15, 33);
+        drawBox(grid, grid.length - 32, grid.length - 16, 23, 25);
+        drawBox(grid, 34, 36, 21, 25);
+        drawBox(grid, 19, 50, 27, 30);
+        drawBox(grid, grid.length - 14, grid.length - 1, 22, 33);
+        drawBox(grid, grid.length - 14, grid.length - 4, 15, 20);
     }
     /*
      * Precondition: The p1 and p2 variables must be in the top left corner of the desired
