@@ -4,6 +4,7 @@
  */
 package pacman_final;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
@@ -15,7 +16,6 @@ import javax.imageio.ImageIO;
  */
 public class Ghost extends Sprite {
 
-    int xPos, yPos;
     private Image currentSprite;
     private Image upSprite1;
     private Image downSprite1;
@@ -42,9 +42,43 @@ public class Ghost extends Sprite {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
     }
     
+    public void turnDir(Tile[][] grid, int to1, int to2, int myI, int myJ)
+    {
+        //myI and myJ is where this ghost is
+        //to1 and to2 are the i and j values for where it is we want the ghost to go.
+        if(myJ < to2 && isSpotEmpty(grid, myI - 1, myJ - 2) && isSpotEmpty(grid, myI, myJ - 2))
+        {
+            this.setDirection(Direction.UP);
+        }
+        else if(myI > to1 && isSpotEmpty(grid, myI - 2, myJ) && isSpotEmpty(grid, myI - 2, myJ - 1))
+        {
+            this.setDirection(Direction.LEFT);
+        }
+        else if(myJ > to2 && isSpotEmpty(grid, myI, myJ + 1) && isSpotEmpty(grid, myI - 1, myJ + 1))
+        {
+            this.setDirection(Direction.DOWN);
+        }
+        else if(myI < to1 && isSpotEmpty(grid, myI + 1, myJ) && isSpotEmpty(grid, myI + 1, myJ - 1))
+        {
+            this.setDirection(Direction.RIGHT);
+        }
+        else
+        {
+            
+        }
+    }
     
+    public boolean isSpotEmpty(Tile[][] grid, int i, int j)
+    {
+        if(grid[i][j].getSpriteContained().equals(GUIPanel.empty))
+        {
+            return true;
+        }
+        return false;
+    }
     
 
     public void update() {
@@ -78,7 +112,11 @@ public class Ghost extends Sprite {
 
     @Override
     public void draw(Graphics g, int xPos, int yPos) {
+        super.setxPos(xPos);
+        super.setyPos(yPos);
         g.drawImage(currentSprite, xPos - 7, yPos - 7, null);
+        g.setColor(Color.GREEN);
+        g.fillRect(xPos, yPos, 7, 7);
     }
 
     /**
