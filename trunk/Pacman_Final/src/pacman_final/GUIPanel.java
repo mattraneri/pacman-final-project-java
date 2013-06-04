@@ -265,28 +265,28 @@ public class GUIPanel extends JPanel implements KeyListener {
     public void movePac(int i, int j) {
         if (pacDir == Direction.UP) {
             //System.out.println("Got to if statement");
-            if (grid[i - 1][j - 2].getSpriteContained() == empty && grid[i][j - 2].getSpriteContained() == empty) {
+            if (isSpotEmpty(grid,i - 1,j - 2) && isSpotEmpty(grid,i,j - 2)) {
                 pacman.setDirection(Direction.UP);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(pacman);
                 pacman.update();
-            }
+	    }
         } else if (pacDir == Direction.DOWN) {
-            if ((grid[i][j + 1].getSpriteContained() == empty) && (j + 1 != grid[0].length - 2) && grid[i - 1][j + 1].getSpriteContained() == empty) {
+            if (isSpotEmpty(grid,i,j + 1) && (j + 1 != grid[0].length - 2) && isSpotEmpty(grid,i - 1,j + 1)) {
                 pacman.setDirection(Direction.DOWN);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(pacman);
                 pacman.update();
             }
         } else if (pacDir == Direction.LEFT) {
-            if (grid[i - 2][j].getSpriteContained() == empty && (i - 2 != -1) && grid[i - 2][j - 1].getSpriteContained() == empty) {
+            if (isSpotEmpty(grid,i - 2,j) && (i - 2 != -1) && isSpotEmpty(grid,i - 2,j - 1)) {
                 pacman.setDirection(Direction.LEFT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(pacman);
                 pacman.update();
             }
         } else if ((pacDir == Direction.RIGHT)) {
-            if (grid[i + 1][j].getSpriteContained() == empty && (i + 1 != grid.length - 2) && grid[i + 1][j - 1].getSpriteContained() == empty) {
+            if (isSpotEmpty(grid,i + 1,j) && (i + 1 != grid.length - 2) && isSpotEmpty(grid,i + 1,j - 1)) {
                 pacman.setDirection(Direction.RIGHT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(pacman);
