@@ -33,6 +33,7 @@ public class YellowGhost extends Ghost{
             this.setRightSprite2(rightSprite2);
             this.setDownSprite1(downSprite1);
             this.setDownSprite2(downSprite2);
+            this.setCurrentSprite(upSprite1);
         } catch(IOException e) {
             //This condition will never be met.
         }
