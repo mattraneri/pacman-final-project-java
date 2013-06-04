@@ -27,11 +27,14 @@ public class GUIPanel extends JPanel implements KeyListener {
     int pinkyJ;
     int clydeI;
     int clydeJ;
+    int inkyI;
+    int inkyJ;
     boolean updateThreadRun = false;
     public static EmptySprite empty = new EmptySprite();
     RedGhost blinky;
     PinkGhost pinky;
     YellowGhost clyde;
+    BlueGhost inky;
     //Image pacSprite;// = ImageIO.read(getClass().getResource("/pacman_sprites/pac-closed.png").toURI().toURL());
 
     public GUIPanel() {
@@ -58,12 +61,14 @@ public class GUIPanel extends JPanel implements KeyListener {
         blinky = new RedGhost();
         pinky = new PinkGhost();
         clyde = new YellowGhost();
+        inky = new BlueGhost();
         grid[35][54].setSpriteContained(pacman);
         paci = 35;
         pacj = 54;
         grid[grid.length / 2][grid[0].length / 2].setSpriteContained(blinky);
         grid[(grid.length / 2) + 4][grid[0].length / 2].setSpriteContained(pinky);
         grid[(grid.length / 2) - 4][grid[0].length / 2].setSpriteContained(clyde);
+        grid[(grid.length / 2) + 8][grid[0].length / 2].setSpriteContained(inky);
         BoardMethods.setup(grid);
         //This is just for testing the width and height of the entire thing
 
@@ -118,9 +123,18 @@ public class GUIPanel extends JPanel implements KeyListener {
                     clydeI = i;
                     clydeJ = j;
                     moveClyde(i, j);
+                } else if(grid[i][j].getX() == inky.getxPos() && grid[i][j].getY() == inky.getyPos()) {
+                    inkyI = i;
+                    inkyJ = j;
+                    moveInky(i, j);
                 }
             }
         }
+    }
+    
+    public void moveInky(int i, int j)
+    {
+        
     }
 
     public void moveClyde(int i, int j) {
