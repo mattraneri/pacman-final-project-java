@@ -15,8 +15,8 @@ public class BoardMethods {
         drawBox(grid, 3, 13, 3, 13);
         drawBox(grid, 15, 28, 3, 13);
         drawBox(grid, 30, 40, 0, 13);
-        drawBox(grid, 42, 55, 3, 13);
-        drawBox(grid, 57, 66, 3, 13);
+        drawBox(grid, 42, 54, 3, 13);
+        drawBox(grid, 56, 66, 3, 13);
         drawBox(grid, 3, 13, 15, 20);
         drawBox(grid, 0, 13, 22, 33);
         drawBox(grid, 15, 17, 15, 33);
@@ -33,8 +33,8 @@ public class BoardMethods {
         drawBox(grid, 3, 13, grid.length - 15, grid.length - 6);
         drawBox(grid, 15, 28, grid.length - 15, grid.length - 6);
         drawBox(grid, 30, 40, grid.length - 15, grid.length - 3);
-        drawBox(grid, 42, 55, grid.length - 15, grid.length - 6);
-        drawBox(grid, 57, 66, grid.length - 15, grid.length - 6);
+        drawBox(grid, 42, 54, grid.length - 15, grid.length - 6);
+        drawBox(grid, 56, 66, grid.length - 15, grid.length - 6);
         drawBox(grid, 3, 13, grid.length - 22, grid.length - 17);
         drawBox(grid, 0, 13, grid.length - 35, grid.length - 24);
         drawBox(grid, 15, 17, grid.length - 35, grid.length - 17);
@@ -44,7 +44,7 @@ public class BoardMethods {
         drawBox(grid, grid.length - 32, grid.length - 16, grid.length - 27, grid.length - 25);
         drawBox(grid, 34, 36, grid.length - 27, grid.length - 23);
         drawBox(grid, 19, 50, grid.length - 32, grid.length - 29);
-        drawBox(grid, grid.length - 14, grid.length - 1, grid.length - 35, grid.length - 25);
+        drawBox(grid, grid.length - 14, grid.length - 1, grid.length - 35, grid.length - 24);
         drawBox(grid, grid.length - 14, grid.length - 4, grid.length - 22, grid.length - 17);
     }
     /*
