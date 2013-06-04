@@ -23,9 +23,12 @@ public class GUIPanel extends JPanel implements KeyListener {
     int pacj;
     int blinkyI;
     int blinkyJ;
+    int pinkyI;
+    int pinkyJ;
     boolean updateThreadRun = false;
     public static EmptySprite empty = new EmptySprite();
     RedGhost blinky;
+    PinkGhost pinky;
     //Image pacSprite;// = ImageIO.read(getClass().getResource("/pacman_sprites/pac-closed.png").toURI().toURL());
 
     public GUIPanel() {
@@ -50,10 +53,12 @@ public class GUIPanel extends JPanel implements KeyListener {
         }
         pacman = new Pacman();
         blinky = new RedGhost();
+        pinky = new PinkGhost();
         grid[35][54].setSpriteContained(pacman);
         paci = 35;
         pacj = 54;
         grid[grid.length / 2][grid[0].length / 2].setSpriteContained(blinky);
+        grid[(grid.length / 2) + 4][grid[0].length / 2].setSpriteContained(pinky);
         BoardMethods.setup(grid);
         //This is just for testing the width and height of the entire thing
 
@@ -101,22 +106,54 @@ public class GUIPanel extends JPanel implements KeyListener {
                     blinkyI = i;
                     blinkyJ = j;
                     moveBlinky(i, j);
+                } else if (grid[i][j].getX() == pinky.getxPos() && grid[i][j].getY() == pinky.getyPos()) {
+                    pinkyI = i;
+                    pinkyJ = j;
+                    movePinky(i, j);
                 }
             }
         }
     }
 
+    public void movePinky(int i, int j) {
+        if(pacman.getDirection() == Direction.UP)
+        {
+            pinky.turnDir(grid, paci, pacj - 4, i, j);
+        }
+        else if(pacman.getDirection() == Direction.LEFT)
+        {
+            pinky.turnDir(grid, paci - 4, pacj, i, j);
+        }
+        else if(pacman.getDirection() == Direction.RIGHT)
+        {
+            pinky.turnDir(grid, paci + 4, pacj, i, j);
+        }
+        else {
+            pinky.turnDir(grid, paci, pacj + 4, i, j);
+        }
+        if (pinky.getDirection() == Direction.UP && isSpotEmpty(grid,i,j-1) && isSpotEmpty(grid,i-1,j-2) && isSpotEmpty(grid,i,j-2)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i][j - 1].setSpriteContained(pinky);
+        } else if (pinky.getDirection() == Direction.LEFT && isSpotEmpty(grid,i-1,j) && isSpotEmpty(grid,i-2,j) && isSpotEmpty(grid,i-2,j-1)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i - 1][j].setSpriteContained(pinky);
+        } else if (pinky.getDirection() == Direction.DOWN && isSpotEmpty(grid,i,j+1) && isSpotEmpty(grid,i-1,j+1)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i][j + 1].setSpriteContained(pinky);
+        } else if (pinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid,i+1,j) && isSpotEmpty(grid,i+1,j-1)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i + 1][j].setSpriteContained(pinky);
+        } else {
+                pinky.setDirection(reverse(pinky.getDirection()));
+        }
+        pinky.update();
+    }
+    
     public void moveBlinky(int i, int j) {
         blinky.turnDir(grid, paci, pacj, i, j);
         if (blinky.getDirection() == Direction.UP && isSpotEmpty(grid,i,j-1) && isSpotEmpty(grid,i-1,j-2) && isSpotEmpty(grid,i,j-2)) {
-            //May not need the turning logic due to the checks in turndir, we will see
-            //CONTINUE HERE MATT!! =D
-            //if(grid[i - 1][j - 2].getSpriteContained() == empty && grid[i][j - 2].getSpriteContained() == empty)
-            //{
-            //blinky.setDirection(Direction.UP);
             grid[i][j].setSpriteContained(empty);
             grid[i][j - 1].setSpriteContained(blinky);
-            //}
         } else if (blinky.getDirection() == Direction.LEFT && isSpotEmpty(grid,i-1,j) && isSpotEmpty(grid,i-2,j) && isSpotEmpty(grid,i-2,j-1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i - 1][j].setSpriteContained(blinky);
@@ -129,7 +166,7 @@ public class GUIPanel extends JPanel implements KeyListener {
         } else {
                 blinky.setDirection(reverse(blinky.getDirection()));
         }
-            blinky.update();
+        blinky.update();
     }
 
     public void movePac(int i, int j) {
