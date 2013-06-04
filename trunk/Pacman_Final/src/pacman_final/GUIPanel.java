@@ -134,7 +134,47 @@ public class GUIPanel extends JPanel implements KeyListener {
     
     public void moveInky(int i, int j)
     {
+        //First we need to get an offset from pacman's position- two in front of pacman
+        int gotoi;
+        int gotoj;
+        if(pacman.getDirection() == Direction.UP)
+        {
+            gotoj = pacj - 3; //This is because two would be right in front of him.
+            gotoi = paci;
+        } else if(pacman.getDirection() == Direction.LEFT) {
+            gotoj = pacj;
+            gotoi = paci - 3; //Again, 3 because of the offset of the sprite
+        } else if(pacman.getDirection() == Direction.RIGHT) {
+            gotoj = pacj;
+            gotoi = paci + 2; //No offset on this one
+        } else {
+            gotoj = pacj + 2;
+            gotoi = paci;
+        }
+        //Now we need to use a bit of the slope formula, to calculate the needed x and y positions
+        int offseti = blinkyI - gotoi;
+        int offsetj = blinkyJ - gotoj;
         
+        int togoi = gotoi + offseti;
+        int togoj = gotoj + offsetj;
+        
+        inky.turnDir(grid, togoi, togoj, i, j);
+        if (inky.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i][j - 1].setSpriteContained(inky);
+        } else if (inky.getDirection() == Direction.LEFT && isSpotEmpty(grid, i - 1, j) && isSpotEmpty(grid, i - 2, j) && isSpotEmpty(grid, i - 2, j - 1)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i - 1][j].setSpriteContained(inky);
+        } else if (inky.getDirection() == Direction.DOWN && isSpotEmpty(grid, i, j + 1) && isSpotEmpty(grid, i - 1, j + 1)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i][j + 1].setSpriteContained(inky);
+        } else if (inky.getDirection() == Direction.RIGHT && isSpotEmpty(grid, i + 1, j) && isSpotEmpty(grid, i + 1, j - 1)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i + 1][j].setSpriteContained(inky);
+        } else {
+            inky.setDirection(reverse(inky.getDirection()));
+        }
+        inky.update();
     }
 
     public void moveClyde(int i, int j) {
