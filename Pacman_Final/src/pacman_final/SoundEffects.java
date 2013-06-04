@@ -25,7 +25,11 @@ public class SoundEffects {
             input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/pacman_beginning.wav"));
             clip.open(input);
             clip.start();
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+        } catch (LineUnavailableException e) {
+            System.out.println(e.getMessage());
+        } catch (UnsupportedAudioFileException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
