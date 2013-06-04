@@ -44,7 +44,7 @@ public class Pellet extends Sprite
         super.setyPos(yPos);
         g.drawImage(currentSprite, xPos - 7, yPos - 7, null);
         g.setColor(Color.WHITE);
-        g.fillRect(xPos, yPos, 7, 7);
+        g.fillOval(xPos + 3, yPos + 3, 7, 7);
     }
     
     /**
