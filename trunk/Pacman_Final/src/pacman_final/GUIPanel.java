@@ -108,7 +108,7 @@ public class GUIPanel extends JPanel implements KeyListener {
 
     public void moveBlinky(int i, int j) {
         blinky.turnDir(grid, paci, pacj, i, j);
-        if (blinky.getDirection() == Direction.UP && isSpotEmpty(grid,i,j-1)) {
+        if (blinky.getDirection() == Direction.UP && isSpotEmpty(grid,i,j-1) && isSpotEmpty(grid,i-1,j-2) && isSpotEmpty(grid,i,j-2)) {
             //May not need the turning logic due to the checks in turndir, we will see
             //CONTINUE HERE MATT!! =D
             //if(grid[i - 1][j - 2].getSpriteContained() == empty && grid[i][j - 2].getSpriteContained() == empty)
@@ -117,13 +117,13 @@ public class GUIPanel extends JPanel implements KeyListener {
             grid[i][j].setSpriteContained(empty);
             grid[i][j - 1].setSpriteContained(blinky);
             //}
-        } else if (blinky.getDirection() == Direction.LEFT && isSpotEmpty(grid,i-1,j)) {
+        } else if (blinky.getDirection() == Direction.LEFT && isSpotEmpty(grid,i-1,j) && isSpotEmpty(grid,i-2,j) && isSpotEmpty(grid,i-2,j-1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i - 1][j].setSpriteContained(blinky);
-        } else if (blinky.getDirection() == Direction.DOWN && isSpotEmpty(grid,i,j+1)) {
+        } else if (blinky.getDirection() == Direction.DOWN && isSpotEmpty(grid,i,j+1) && isSpotEmpty(grid,i-1,j+1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i][j + 1].setSpriteContained(blinky);
-        } else if (blinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid,i+1,j)) {
+        } else if (blinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid,i+1,j) && isSpotEmpty(grid,i+1,j-1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i + 1][j].setSpriteContained(blinky);
         } else {
