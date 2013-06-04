@@ -8,10 +8,10 @@ package pacman_final;
  *
  * @author matt
  */
-public class RedGhost extends Ghost{
+public class RedGhost extends Ghost {
     //Red images are default, not a problem- no changing of images nessesary
-    public RedGhost()
-    {
+
+    public RedGhost() {
         super();
     }
 }
