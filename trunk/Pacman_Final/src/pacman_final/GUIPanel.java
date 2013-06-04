@@ -68,6 +68,27 @@ public class GUIPanel extends JPanel implements KeyListener {
     public void update() {
         move();
     }
+    
+    public int reverse(int dir)
+    {
+        if(dir == 0)
+                return 1;
+        else if(dir == 1)
+                return 0;
+        else if(dir == 2)
+                return 3;
+        else if(dir == 3)
+                return 2; 
+        return -1; 
+    }
+
+    public boolean isSpotEmpty(Tile[][] grid, int i, int j) {
+        if (grid[i][j].getSpriteContained().equals(GUIPanel.empty)) {
+            return true;
+        }
+        return false;
+    }
+
 
     public void move() {
         for (int i = 0; i < grid.length; i++) {
@@ -87,7 +108,7 @@ public class GUIPanel extends JPanel implements KeyListener {
 
     public void moveBlinky(int i, int j) {
         blinky.turnDir(grid, paci, pacj, i, j);
-        if (blinky.getDirection() == Direction.UP) {
+        if (blinky.getDirection() == Direction.UP && isSpotEmpty(grid,i,j-1)) {
             //May not need the turning logic due to the checks in turndir, we will see
             //CONTINUE HERE MATT!! =D
             //if(grid[i - 1][j - 2].getSpriteContained() == empty && grid[i][j - 2].getSpriteContained() == empty)
@@ -95,21 +116,20 @@ public class GUIPanel extends JPanel implements KeyListener {
             //blinky.setDirection(Direction.UP);
             grid[i][j].setSpriteContained(empty);
             grid[i][j - 1].setSpriteContained(blinky);
-            blinky.update();
             //}
-        } else if (blinky.getDirection() == Direction.LEFT) {
+        } else if (blinky.getDirection() == Direction.LEFT && isSpotEmpty(grid,i-1,j)) {
             grid[i][j].setSpriteContained(empty);
             grid[i - 1][j].setSpriteContained(blinky);
-            blinky.update();
-        } else if (blinky.getDirection() == Direction.DOWN) {
+        } else if (blinky.getDirection() == Direction.DOWN && isSpotEmpty(grid,i,j+1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i][j + 1].setSpriteContained(blinky);
-            blinky.update();
-        } else if (blinky.getDirection() == Direction.RIGHT) {
+        } else if (blinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid,i+1,j)) {
             grid[i][j].setSpriteContained(empty);
             grid[i + 1][j].setSpriteContained(blinky);
-            blinky.update();
+        } else {
+                blinky.setDirection(reverse(blinky.getDirection()));
         }
+            blinky.update();
     }
 
     public void movePac(int i, int j) {
