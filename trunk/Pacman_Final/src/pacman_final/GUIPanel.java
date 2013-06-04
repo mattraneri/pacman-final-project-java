@@ -25,10 +25,13 @@ public class GUIPanel extends JPanel implements KeyListener {
     int blinkyJ;
     int pinkyI;
     int pinkyJ;
+    int clydeI;
+    int clydeJ;
     boolean updateThreadRun = false;
     public static EmptySprite empty = new EmptySprite();
     RedGhost blinky;
     PinkGhost pinky;
+    YellowGhost clyde;
     //Image pacSprite;// = ImageIO.read(getClass().getResource("/pacman_sprites/pac-closed.png").toURI().toURL());
 
     public GUIPanel() {
@@ -54,11 +57,13 @@ public class GUIPanel extends JPanel implements KeyListener {
         pacman = new Pacman();
         blinky = new RedGhost();
         pinky = new PinkGhost();
+        clyde = new YellowGhost();
         grid[35][54].setSpriteContained(pacman);
         paci = 35;
         pacj = 54;
         grid[grid.length / 2][grid[0].length / 2].setSpriteContained(blinky);
         grid[(grid.length / 2) + 4][grid[0].length / 2].setSpriteContained(pinky);
+        grid[(grid.length / 2) - 4][grid[0].length / 2].setSpriteContained(clyde);
         BoardMethods.setup(grid);
         //This is just for testing the width and height of the entire thing
 
@@ -110,11 +115,22 @@ public class GUIPanel extends JPanel implements KeyListener {
                     pinkyI = i;
                     pinkyJ = j;
                     movePinky(i, j);
+                } else if(grid[i][j].getX() == clyde.getxPos() && grid[i][j].getY() == clyde.getyPos())
+                {
+                    clydeI = i;
+                    clydeJ = j;
+                    moveClyde(i, j);
                 }
             }
         }
     }
-
+    
+    public void moveClyde(int i, int j)
+    {
+        //We need to add distance to move clyde whenever he is within 8 of pacman
+        //he needs to move to the bottom left
+    }
+    
     public void movePinky(int i, int j) {
         if(pacman.getDirection() == Direction.UP)
         {
