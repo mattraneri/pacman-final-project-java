@@ -18,7 +18,6 @@ public class GUIPanel extends JPanel implements KeyListener {
 
     Tile[][] grid = new Tile[70][68]; //504 504 screen rz.
     Pacman pacman = null;
-    int oldPacDir = -1;
     int pacDir = -1;
     int paci;
     int pacj;
@@ -79,18 +78,18 @@ public class GUIPanel extends JPanel implements KeyListener {
     public void update() {
         move();
     }
-    
-    public int reverse(int dir)
-    {
-        if(dir == 0)
-                return 1;
-        else if(dir == 1)
-                return 0;
-        else if(dir == 2)
-                return 3;
-        else if(dir == 3)
-                return 2; 
-        return -1; 
+
+    public int reverse(int dir) {
+        if (dir == 0) {
+            return 1;
+        } else if (dir == 1) {
+            return 0;
+        } else if (dir == 2) {
+            return 3;
+        } else if (dir == 3) {
+            return 2;
+        }
+        return -1;
     }
 
     public boolean isSpotEmpty(Tile[][] grid, int i, int j) {
@@ -99,7 +98,6 @@ public class GUIPanel extends JPanel implements KeyListener {
         }
         return false;
     }
-
 
     public void move() {
         for (int i = 0; i < grid.length; i++) {
@@ -116,8 +114,7 @@ public class GUIPanel extends JPanel implements KeyListener {
                     pinkyI = i;
                     pinkyJ = j;
                     movePinky(i, j);
-                } else if(grid[i][j].getX() == clyde.getxPos() && grid[i][j].getY() == clyde.getyPos())
-                {
+                } else if (grid[i][j].getX() == clyde.getxPos() && grid[i][j].getY() == clyde.getyPos()) {
                     clydeI = i;
                     clydeJ = j;
                     moveClyde(i, j);
@@ -125,63 +122,88 @@ public class GUIPanel extends JPanel implements KeyListener {
             }
         }
     }
-    
-    public void moveClyde(int i, int j)
-    {
+
+    public void moveClyde(int i, int j) {
         //We need to add distance to move clyde whenever he is within 8 of pacman
         //he needs to move to the bottom left
+        if (isFarEnough(i, j) == true) {
+            clyde.turnDir(grid, paci, pacj, i, j);
+        } else {
+            clyde.turnDir(grid, grid.length - 1, grid[0].length - 1, i, j);
+        }
+        if (clyde.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i][j - 1].setSpriteContained(clyde);
+        } else if (clyde.getDirection() == Direction.LEFT && isSpotEmpty(grid, i - 1, j) && isSpotEmpty(grid, i - 2, j) && isSpotEmpty(grid, i - 2, j - 1)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i - 1][j].setSpriteContained(clyde);
+        } else if (clyde.getDirection() == Direction.DOWN && isSpotEmpty(grid, i, j + 1) && isSpotEmpty(grid, i - 1, j + 1)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i][j + 1].setSpriteContained(clyde);
+        } else if (clyde.getDirection() == Direction.RIGHT && isSpotEmpty(grid, i + 1, j) && isSpotEmpty(grid, i + 1, j - 1)) {
+            grid[i][j].setSpriteContained(empty);
+            grid[i + 1][j].setSpriteContained(clyde);
+        } else {
+            clyde.setDirection(reverse(clyde.getDirection()));
+        }
+        clyde.update();
     }
-    
+
+    //This method is used by Clyde to determine distance from pacman, and whether
+    //He should chase or run back to the corner
+    public boolean isFarEnough(int x, int y) {
+        int sqOfX = (x - paci) * (x - paci);
+        int sqOfY = (y - pacj) * (y - pacj);
+        if (Math.sqrt(sqOfX + sqOfY) > 8) {
+            return true;
+        }
+        return false;
+    }
+
     public void movePinky(int i, int j) {
-        if(pacman.getDirection() == Direction.UP)
-        {
+        if (pacman.getDirection() == Direction.UP) {
             pinky.turnDir(grid, paci, pacj - 4, i, j);
-        }
-        else if(pacman.getDirection() == Direction.LEFT)
-        {
+        } else if (pacman.getDirection() == Direction.LEFT) {
             pinky.turnDir(grid, paci - 4, pacj, i, j);
-        }
-        else if(pacman.getDirection() == Direction.RIGHT)
-        {
+        } else if (pacman.getDirection() == Direction.RIGHT) {
             pinky.turnDir(grid, paci + 4, pacj, i, j);
-        }
-        else {
+        } else {
             pinky.turnDir(grid, paci, pacj + 4, i, j);
         }
-        if (pinky.getDirection() == Direction.UP && isSpotEmpty(grid,i,j-1) && isSpotEmpty(grid,i-1,j-2) && isSpotEmpty(grid,i,j-2)) {
+        if (pinky.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
             grid[i][j].setSpriteContained(empty);
             grid[i][j - 1].setSpriteContained(pinky);
-        } else if (pinky.getDirection() == Direction.LEFT && isSpotEmpty(grid,i-1,j) && isSpotEmpty(grid,i-2,j) && isSpotEmpty(grid,i-2,j-1)) {
+        } else if (pinky.getDirection() == Direction.LEFT && isSpotEmpty(grid, i - 1, j) && isSpotEmpty(grid, i - 2, j) && isSpotEmpty(grid, i - 2, j - 1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i - 1][j].setSpriteContained(pinky);
-        } else if (pinky.getDirection() == Direction.DOWN && isSpotEmpty(grid,i,j+1) && isSpotEmpty(grid,i-1,j+1)) {
+        } else if (pinky.getDirection() == Direction.DOWN && isSpotEmpty(grid, i, j + 1) && isSpotEmpty(grid, i - 1, j + 1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i][j + 1].setSpriteContained(pinky);
-        } else if (pinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid,i+1,j) && isSpotEmpty(grid,i+1,j-1)) {
+        } else if (pinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid, i + 1, j) && isSpotEmpty(grid, i + 1, j - 1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i + 1][j].setSpriteContained(pinky);
         } else {
-                pinky.setDirection(reverse(pinky.getDirection()));
+            pinky.setDirection(reverse(pinky.getDirection()));
         }
         pinky.update();
     }
-    
+
     public void moveBlinky(int i, int j) {
         blinky.turnDir(grid, paci, pacj, i, j);
-        if (blinky.getDirection() == Direction.UP && isSpotEmpty(grid,i,j-1) && isSpotEmpty(grid,i-1,j-2) && isSpotEmpty(grid,i,j-2)) {
+        if (blinky.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
             grid[i][j].setSpriteContained(empty);
             grid[i][j - 1].setSpriteContained(blinky);
-        } else if (blinky.getDirection() == Direction.LEFT && isSpotEmpty(grid,i-1,j) && isSpotEmpty(grid,i-2,j) && isSpotEmpty(grid,i-2,j-1)) {
+        } else if (blinky.getDirection() == Direction.LEFT && isSpotEmpty(grid, i - 1, j) && isSpotEmpty(grid, i - 2, j) && isSpotEmpty(grid, i - 2, j - 1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i - 1][j].setSpriteContained(blinky);
-        } else if (blinky.getDirection() == Direction.DOWN && isSpotEmpty(grid,i,j+1) && isSpotEmpty(grid,i-1,j+1)) {
+        } else if (blinky.getDirection() == Direction.DOWN && isSpotEmpty(grid, i, j + 1) && isSpotEmpty(grid, i - 1, j + 1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i][j + 1].setSpriteContained(blinky);
-        } else if (blinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid,i+1,j) && isSpotEmpty(grid,i+1,j-1)) {
+        } else if (blinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid, i + 1, j) && isSpotEmpty(grid, i + 1, j - 1)) {
             grid[i][j].setSpriteContained(empty);
             grid[i + 1][j].setSpriteContained(blinky);
         } else {
-                blinky.setDirection(reverse(blinky.getDirection()));
+            blinky.setDirection(reverse(blinky.getDirection()));
         }
         blinky.update();
     }
@@ -189,54 +211,28 @@ public class GUIPanel extends JPanel implements KeyListener {
     public void movePac(int i, int j) {
         if (pacDir == Direction.UP) {
             //System.out.println("Got to if statement");
-            if (isSpotEmpty(grid,i - 1,j - 2) && isSpotEmpty(grid,i,j - 2)) {
+            if (grid[i - 1][j - 2].getSpriteContained() == empty && grid[i][j - 2].getSpriteContained() == empty) {
                 pacman.setDirection(Direction.UP);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(pacman);
                 pacman.update();
             }
-            else {
-                //pacDir = oldPacDir;
-                //movePac(paci++,pacj);
-                /*pacDir = oldPacDir;
-                pacman.setDirection(pacDir);
-                if (pacDir == 0)
-                {
-                    grid[i][j].setSpriteContained(empty);
-                    grid[i][j - 1].setSpriteContained(pacman);
-                }
-                else if (pacDir == 1)
-                {
-                    grid[i][j].setSpriteContained(empty);
-                    grid[i][j + 1].setSpriteContained(pacman);
-                }
-                else if (pacDir == 2)
-                {
-                    grid[i][j].setSpriteContained(empty);
-                    grid[i - 1][j].setSpriteContained(pacman);
-                }
-                else if (pacDir == 3)
-                {
-                    grid[i][j].setSpriteContained(empty);
-                    grid[i + 1][j].setSpriteContained(pacman);
-                }*/
-            }
         } else if (pacDir == Direction.DOWN) {
-            if (isSpotEmpty(grid,i,j + 1) && (j + 1 != grid[0].length - 2) && isSpotEmpty(grid,i - 1,j + 1)) {
+            if ((grid[i][j + 1].getSpriteContained() == empty) && (j + 1 != grid[0].length - 2) && grid[i - 1][j + 1].getSpriteContained() == empty) {
                 pacman.setDirection(Direction.DOWN);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(pacman);
                 pacman.update();
             }
         } else if (pacDir == Direction.LEFT) {
-            if (isSpotEmpty(grid,i - 2,j) && (i - 2 != -1) && isSpotEmpty(grid,i - 2,j - 1)) {
+            if (grid[i - 2][j].getSpriteContained() == empty && (i - 2 != -1) && grid[i - 2][j - 1].getSpriteContained() == empty) {
                 pacman.setDirection(Direction.LEFT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(pacman);
                 pacman.update();
             }
         } else if ((pacDir == Direction.RIGHT)) {
-            if (isSpotEmpty(grid,i + 1,j) && (i + 1 != grid.length - 2) && isSpotEmpty(grid,i + 1,j - 1)) {
+            if (grid[i + 1][j].getSpriteContained() == empty && (i + 1 != grid.length - 2) && grid[i + 1][j - 1].getSpriteContained() == empty) {
                 pacman.setDirection(Direction.RIGHT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(pacman);
@@ -288,22 +284,18 @@ public class GUIPanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
         //This is the useful method.
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            oldPacDir = pacDir;
             pacDir = Direction.UP;
             //pacman.setDirection(Direction.UP);
             //System.out.println("up");
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            oldPacDir = pacDir;
             pacDir = Direction.DOWN;
             //pacman.setDirection(Direction.DOWN);
             //System.out.println("down");
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            oldPacDir = pacDir;
             pacDir = Direction.LEFT;
             //pacman.setDirection(Direction.LEFT);
             //System.out.println("left");
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            oldPacDir = pacDir;
             pacDir = Direction.RIGHT;
             //pacman.setDirection(Direction.RIGHT);
             //System.out.println("right");
