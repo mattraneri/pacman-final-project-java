@@ -46,6 +46,7 @@ public class BoardMethods {
         drawBox(grid, 19, 50, grid.length - 32, grid.length - 29);
         drawBox(grid, grid.length - 14, grid.length - 1, grid.length - 35, grid.length - 24);
         drawBox(grid, grid.length - 14, grid.length - 4, grid.length - 22, grid.length - 17);
+        drawDots(grid, 3,13,20,22);
     }
     /*
      * Precondition: The p1 and p2 variables must be in the top left corner of the desired
@@ -68,4 +69,23 @@ public class BoardMethods {
             }
         }
     }
+    
+    public static void drawDots(Tile[][] grid, int p1, int p2, int pp1, int pp2)
+    {
+        for(int i = p1; i < p2; i = i + 2)
+        {
+            for(int j = pp1; j < pp2; j = j + 2)
+            {
+                grid[i][j].setSpriteContained(new Pellet());
+            }
+        }
+        for(int i = p1 + 1; i < p2 - 1; i = i + 2)
+        {
+            for(int j = pp1 + 1; j < pp2 - 1; j = j + 2)
+            {
+                grid[i][j].setSpriteContained(new Pellet());
+            }
+        }
+    }
 }
+
