@@ -49,7 +49,7 @@ public class Ghost extends Sprite {
     {
         //myI and myJ is where this ghost is
         //to1 and to2 are the i and j values for where it is we want the ghost to go.
-        if(myJ < to2 && isSpotEmpty(grid, myI - 1, myJ - 2) && isSpotEmpty(grid, myI, myJ - 2))
+        if(myJ > to2 && isSpotEmpty(grid, myI - 1, myJ - 2) && isSpotEmpty(grid, myI, myJ - 2))
         {
             this.setDirection(Direction.UP);
         }
@@ -57,7 +57,7 @@ public class Ghost extends Sprite {
         {
             this.setDirection(Direction.LEFT);
         }
-        else if(myJ > to2 && isSpotEmpty(grid, myI, myJ + 1) && isSpotEmpty(grid, myI - 1, myJ + 1))
+        else if(myJ < to2 && isSpotEmpty(grid, myI, myJ + 1) && isSpotEmpty(grid, myI - 1, myJ + 1))
         {
             this.setDirection(Direction.DOWN);
         }
@@ -67,7 +67,7 @@ public class Ghost extends Sprite {
         }
         else
         {
-            
+            //All of the above conditions should be satisfied...
         }
     }
     
