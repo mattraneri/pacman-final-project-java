@@ -300,8 +300,11 @@ public class GUIPanel extends JPanel implements KeyListener {
         @Override
         public void run() {
             updateThreadRun = true;
-            //SoundEffects.playEntry();
-            //pause(5000);
+            SoundEffects.playCredit();
+            pause(2000);
+            SoundEffects.playEntry();
+            pause(5000);
+            SoundEffects.startAlarm();
             while (true) {
                 pause(100);
                 update();
