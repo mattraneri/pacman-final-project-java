@@ -17,8 +17,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class SoundEffects {
 
-    static AlarmPlay ap;
-
     public static void playEntry() {
         try {
             Clip clip = AudioSystem.getClip();
@@ -53,23 +51,32 @@ public class SoundEffects {
 
     public static void startAlarm() {
         Clip clip = null;
-            try {
-                clip = AudioSystem.getClip();
-                AudioInputStream input;
-                input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/ghost_alarm.wav"));
-                clip.open(input);
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            clip = AudioSystem.getClip();
+            AudioInputStream input;
+            input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/ghost_alarm.wav"));
+            clip.open(input);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            e.printStackTrace();
 
-            }
+        }
     }
-
-    public static class AlarmPlay extends Thread {
-
-        @Override
-        public void run() {
-            
+    
+    public static void playPacmanDead()
+    {
+        try {
+            Clip clip = AudioSystem.getClip();
+            AudioInputStream input;
+            input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/pac_die.wav"));
+            clip.open(input);
+            clip.start();
+        } catch (LineUnavailableException e) {
+            System.out.println(e.getMessage());
+        } catch (UnsupportedAudioFileException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
