@@ -19,6 +19,7 @@ public class Pellet extends Sprite
         try
         {
             pelletSprite = ImageIO.read(getClass().getResource("/pacman_sprites/pellet.png"));
+            currentSprite = pelletSprite;
         }
         catch (IOException e)
         {
@@ -42,9 +43,9 @@ public class Pellet extends Sprite
     public void draw(Graphics g, int xPos, int yPos) {
         super.setxPos(xPos);
         super.setyPos(yPos);
-        g.drawImage(currentSprite, xPos - 7, yPos - 7, null);
-        g.setColor(Color.WHITE);
-        g.fillOval(xPos + 3, yPos + 3, 7, 7);
+        g.drawImage(currentSprite, xPos - 3, yPos - 3, null);
+        g.setColor(Color.ORANGE);
+        g.drawRect(xPos, yPos, 7, 7);
     }
     
     /**

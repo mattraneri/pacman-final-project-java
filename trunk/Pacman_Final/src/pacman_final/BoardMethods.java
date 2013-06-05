@@ -9,8 +9,12 @@ package pacman_final;
  * @author matt
  */
 public class BoardMethods {
-    public static void setup(Tile[][] grid)
-    {
+
+    public static void setup(Tile[][] grid) {
+        for (int i = 2; i < grid[0].length; i = i + 2) {
+            drawDots(grid, 2, 27, i, i + 1);
+        }
+
         //I hate this part.
         drawBox(grid, 3, 13, 3, 13);
         drawBox(grid, 15, 28, 3, 13);
@@ -46,46 +50,41 @@ public class BoardMethods {
         drawBox(grid, 19, 50, grid.length - 32, grid.length - 29);
         drawBox(grid, grid.length - 14, grid.length - 1, grid.length - 35, grid.length - 24);
         drawBox(grid, grid.length - 14, grid.length - 4, grid.length - 22, grid.length - 17);
-        drawDots(grid, 3,13,20,22);
+        clearDots(grid);
     }
     /*
      * Precondition: The p1 and p2 variables must be in the top left corner of the desired
      * draw location for the box.
      */
-    public static void drawBox(Tile[][] grid, int p1, int p2, int pp1, int pp2)
-    {
-        for(int i = p1; i < p2; i++)
-        {
-            for(int j = pp1; j < pp2; j++)
-            {
+
+    public static void drawBox(Tile[][] grid, int p1, int p2, int pp1, int pp2) {
+        for (int i = p1; i < p2; i++) {
+            for (int j = pp1; j < pp2; j++) {
                 grid[i][j].setSpriteContained(new CollisionWall(false));
             }
         }
-        for(int i = p1 + 1; i < p2 - 1; i++)
-        {
-            for(int j = pp1 + 1; j < pp2 - 1; j++)
-            {
+        for (int i = p1 + 1; i < p2 - 1; i++) {
+            for (int j = pp1 + 1; j < pp2 - 1; j++) {
                 grid[i][j].setSpriteContained(new EmptySprite());
             }
         }
     }
-    
-    public static void drawDots(Tile[][] grid, int p1, int p2, int pp1, int pp2)
-    {
-        for(int i = p1; i < p2; i = i + 2)
-        {
-            for(int j = pp1; j < pp2; j = j + 2)
-            {
-                grid[i][j].setSpriteContained(new Pellet());
+
+    public static void drawDots(Tile[][] grid, int p1, int p2, int pp1, int pp2) {
+        for (int i = p1; i < p2; i = i + 2) {
+            for (int j = pp1; j < pp2; j = j + 2) {
+                grid[i][j].setSpriteContained(GUIPanel.dot);
             }
         }
-        for(int i = p1 + 1; i < p2 - 1; i = i + 2)
-        {
-            for(int j = pp1 + 1; j < pp2 - 1; j = j + 2)
-            {
-                grid[i][j].setSpriteContained(new Pellet());
+    }
+
+    public static void clearDots(Tile[][] grid) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 2; j < grid[0].length; j++) {
+                if (grid[i][j].getSpriteContained().equals(GUIPanel.empty) && grid[i][j + 1].equals(new CollisionWall())) {
+                    grid[i][j].setSpriteContained(GUIPanel.empty);
+                }
             }
         }
     }
 }
-
