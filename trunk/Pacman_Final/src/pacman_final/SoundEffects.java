@@ -16,7 +16,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author matt
  */
 public class SoundEffects {
-
+    
+    static Clip alarm = null;
+    
     public static void playEntry() {
         try {
             Clip clip = AudioSystem.getClip();
@@ -50,17 +52,21 @@ public class SoundEffects {
     }
 
     public static void startAlarm() {
-        Clip clip = null;
         try {
-            clip = AudioSystem.getClip();
+            alarm = AudioSystem.getClip();
             AudioInputStream input;
             input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/ghost_alarm.wav"));
-            clip.open(input);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            alarm.open(input);
+            alarm.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
             e.printStackTrace();
 
         }
+    }
+    
+    public static void stopAlarm() {
+        if(alarm != null)
+            alarm.stop();
     }
     
     public static void playPacmanDead()

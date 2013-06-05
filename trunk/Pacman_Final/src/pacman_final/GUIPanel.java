@@ -18,7 +18,7 @@ public class GUIPanel extends JPanel implements KeyListener {
 
     Tile[][] grid = new Tile[70][68]; //504 504 screen rz.
     Pacman pacman = null;
-    int pacDir = -1;
+    int pacDir = Direction.LEFT;
     int paci;
     int pacj;
     int blinkyI;
@@ -62,14 +62,17 @@ public class GUIPanel extends JPanel implements KeyListener {
         pinky = new PinkGhost();
         clyde = new YellowGhost();
         inky = new BlueGhost();
-        grid[35][54].setSpriteContained(pacman);
-        paci = 35;
-        pacj = 54;
-        grid[grid.length / 2][grid[0].length / 2].setSpriteContained(blinky);
-        grid[(grid.length / 2) + 4][grid[0].length / 2].setSpriteContained(pinky);
-        grid[(grid.length / 2) - 4][grid[0].length / 2].setSpriteContained(clyde);
-        grid[(grid.length / 2) + 8][grid[0].length / 2].setSpriteContained(inky);
-        BoardMethods.setup(grid);
+
+        /*grid[35][54].setSpriteContained(pacman);
+         paci = 35;
+         pacj = 54;
+         grid[grid.length / 2][grid[0].length / 2].setSpriteContained(blinky);
+         grid[(grid.length / 2) + 4][grid[0].length / 2].setSpriteContained(pinky);
+         grid[(grid.length / 2) - 4][grid[0].length / 2].setSpriteContained(clyde);
+         grid[(grid.length / 2) + 8][grid[0].length / 2].setSpriteContained(inky);
+         BoardMethods.setup(grid);*/
+
+
         //This is just for testing the width and height of the entire thing
 
         /*int temp = 91; //Furthest to the end without touching the grid is 91, 96.  So lets change
@@ -123,7 +126,7 @@ public class GUIPanel extends JPanel implements KeyListener {
                     clydeI = i;
                     clydeJ = j;
                     moveClyde(i, j);
-                } else if(grid[i][j].getX() == inky.getxPos() && grid[i][j].getY() == inky.getyPos()) {
+                } else if (grid[i][j].getX() == inky.getxPos() && grid[i][j].getY() == inky.getyPos()) {
                     inkyI = i;
                     inkyJ = j;
                     moveInky(i, j);
@@ -131,20 +134,18 @@ public class GUIPanel extends JPanel implements KeyListener {
             }
         }
     }
-    
-    public void moveInky(int i, int j)
-    {
+
+    public void moveInky(int i, int j) {
         //First we need to get an offset from pacman's position- two in front of pacman
         int gotoi;
         int gotoj;
-        if(pacman.getDirection() == Direction.UP)
-        {
+        if (pacman.getDirection() == Direction.UP) {
             gotoj = pacj - 3; //This is because two would be right in front of him.
             gotoi = paci;
-        } else if(pacman.getDirection() == Direction.LEFT) {
+        } else if (pacman.getDirection() == Direction.LEFT) {
             gotoj = pacj;
             gotoi = paci - 3; //Again, 3 because of the offset of the sprite
-        } else if(pacman.getDirection() == Direction.RIGHT) {
+        } else if (pacman.getDirection() == Direction.RIGHT) {
             gotoj = pacj;
             gotoi = paci + 2; //No offset on this one
         } else {
@@ -154,10 +155,10 @@ public class GUIPanel extends JPanel implements KeyListener {
         //Now we need to use a bit of the slope formula, to calculate the needed x and y positions
         int offseti = blinkyI - gotoi;
         int offsetj = blinkyJ - gotoj;
-        
+
         int togoi = gotoi + offseti;
         int togoj = gotoj + offsetj;
-        
+
         inky.turnDir(grid, togoi, togoj, i, j);
         if (inky.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
             grid[i][j].setSpriteContained(empty);
@@ -242,6 +243,23 @@ public class GUIPanel extends JPanel implements KeyListener {
         pinky.update();
     }
 
+    public void pacmanDie() {
+        updateThreadRun = false;
+        SoundEffects.stopAlarm();
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SoundEffects.playPacmanDead();
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        GUIFrame.reset();
+    }
+
     public void moveBlinky(int i, int j) {
         blinky.turnDir(grid, paci, pacj, i, j);
         if (blinky.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
@@ -265,28 +283,28 @@ public class GUIPanel extends JPanel implements KeyListener {
     public void movePac(int i, int j) {
         if (pacDir == Direction.UP) {
             //System.out.println("Got to if statement");
-            if (isSpotEmpty(grid,i - 1,j - 2) && isSpotEmpty(grid,i,j - 2)) {
+            if (isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
                 pacman.setDirection(Direction.UP);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(pacman);
                 pacman.update();
-	    }
+            }
         } else if (pacDir == Direction.DOWN) {
-            if (isSpotEmpty(grid,i,j + 1) && (j + 1 != grid[0].length - 2) && isSpotEmpty(grid,i - 1,j + 1)) {
+            if (isSpotEmpty(grid, i, j + 1) && (j + 1 != grid[0].length - 2) && isSpotEmpty(grid, i - 1, j + 1)) {
                 pacman.setDirection(Direction.DOWN);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(pacman);
                 pacman.update();
             }
         } else if (pacDir == Direction.LEFT) {
-            if (isSpotEmpty(grid,i - 2,j) && (i - 2 != -1) && isSpotEmpty(grid,i - 2,j - 1)) {
+            if (isSpotEmpty(grid, i - 2, j) && (i - 2 != -1) && isSpotEmpty(grid, i - 2, j - 1)) {
                 pacman.setDirection(Direction.LEFT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(pacman);
                 pacman.update();
             }
         } else if ((pacDir == Direction.RIGHT)) {
-            if (isSpotEmpty(grid,i + 1,j) && (i + 1 != grid.length - 2) && isSpotEmpty(grid,i + 1,j - 1)) {
+            if (isSpotEmpty(grid, i + 1, j) && (i + 1 != grid.length - 2) && isSpotEmpty(grid, i + 1, j - 1)) {
                 pacman.setDirection(Direction.RIGHT);
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(pacman);
@@ -303,12 +321,22 @@ public class GUIPanel extends JPanel implements KeyListener {
             SoundEffects.playCredit();
             pause(2000);
             SoundEffects.playEntry();
-            pause(5000);
+            pause(2500);
+            grid[35][54].setSpriteContained(pacman);
+            paci = 35;
+            pacj = 54;
+            grid[grid.length / 2][grid[0].length / 2].setSpriteContained(blinky);
+            grid[(grid.length / 2) + 4][grid[0].length / 2].setSpriteContained(pinky);
+            grid[(grid.length / 2) - 4][grid[0].length / 2].setSpriteContained(clyde);
+            grid[(grid.length / 2) + 8][grid[0].length / 2].setSpriteContained(inky);
+            BoardMethods.setup(grid);
+            pause(2500);
             SoundEffects.startAlarm();
-            while (true) {
+            while (updateThreadRun) {
                 pause(100);
                 update();
             }
+            updateThreadRun = false;
         }
 
         public void pause(long time) {
@@ -357,6 +385,7 @@ public class GUIPanel extends JPanel implements KeyListener {
             //pacman.setDirection(Direction.RIGHT);
             //System.out.println("right");
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE && updateThreadRun == false) {
+            
             updateThread t = new updateThread();
             t.start();
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -364,6 +393,8 @@ public class GUIPanel extends JPanel implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_P) //For debugging
         {
             System.out.println(pacman.getxPos() + " " + pacman.getyPos());
+            //SoundEffects.stopAlarm();
+            pacmanDie();
         }
     }
 
