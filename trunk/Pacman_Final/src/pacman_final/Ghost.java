@@ -63,7 +63,7 @@ public class Ghost extends Sprite {
     }
 
     public boolean isSpotEmpty(Tile[][] grid, int i, int j) {
-        if (grid[i][j].getSpriteContained().equals(GUIPanel.empty)) {
+        if (grid[i][j].getSpriteContained().equals(GUIPanel.empty) || grid[i][j].getSpriteContained().equals(GUIPanel.dot)) {
             return true;
         }
         return false;
@@ -103,8 +103,6 @@ public class Ghost extends Sprite {
         super.setxPos(xPos);
         super.setyPos(yPos);
         g.drawImage(currentSprite, xPos - 7, yPos - 7, null);
-        g.setColor(Color.GREEN);
-        g.fillRect(xPos, yPos, 7, 7);
     }
 
     /**

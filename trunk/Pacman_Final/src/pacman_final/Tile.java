@@ -9,6 +9,7 @@ import java.awt.Graphics;
 public class Tile {
     private int x, y;
     private Sprite spriteContained;
+    private Sprite prevSprite;
     public Tile()
     {
         x = 0;
@@ -79,6 +80,18 @@ public class Tile {
     public void setSpriteContained(Sprite spriteContained) {
         this.spriteContained = spriteContained;
     }
-    
-    
+
+    /**
+     * @return the prevSprite
+     */
+    public Sprite getPrevSprite() {
+        return prevSprite;
+    }
+
+    /**
+     * @param prevSprite the prevSprite to set
+     */
+    public void setPrevSprite(Sprite prevSprite) {
+        this.prevSprite = prevSprite;
+    }
 }
