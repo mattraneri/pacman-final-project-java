@@ -106,6 +106,7 @@ public class BoardMethods {
         for (int i = p1; i <= p2; i = i + 2) {
             for (int j = pp1; j <= pp2; j = j + 2) {
                 grid[i][j].setSpriteContained(GUIPanel.dot);
+                grid[i][j].setPrevSprite(GUIPanel.dot);
             }
         }
     }
