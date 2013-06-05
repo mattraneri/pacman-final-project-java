@@ -299,6 +299,10 @@ public class GUIPanel extends JPanel implements KeyListener {
             //System.out.println("Got to if statement");
             if (isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
                 pacman.setDirection(Direction.UP);
+                if(grid[i][j - 2].getSpriteContained() instanceof Pellet)
+                {
+                    SoundEffects.contactDot();
+                }
                 grid[i][j].setPrevSprite(empty);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(pacman);
@@ -310,6 +314,10 @@ public class GUIPanel extends JPanel implements KeyListener {
         } else if (pacDir == Direction.DOWN) {
             if (isSpotEmpty(grid, i, j + 1) && (j + 1 != grid[0].length - 2) && isSpotEmpty(grid, i - 1, j + 1)) {
                 pacman.setDirection(Direction.DOWN);
+                if(grid[i][j + 1].getSpriteContained() instanceof Pellet)
+                {
+                    SoundEffects.contactDot();
+                }
                 grid[i][j].setPrevSprite(empty);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(pacman);
@@ -321,6 +329,10 @@ public class GUIPanel extends JPanel implements KeyListener {
         } else if (pacDir == Direction.LEFT) {
             if (isSpotEmpty(grid, i - 2, j) && (i - 2 != -1) && isSpotEmpty(grid, i - 2, j - 1)) {
                 pacman.setDirection(Direction.LEFT);
+                if(grid[i - 2][j].getSpriteContained() instanceof Pellet)
+                {
+                    SoundEffects.contactDot();
+                }
                 grid[i][j].setPrevSprite(empty);
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(pacman);
@@ -332,6 +344,10 @@ public class GUIPanel extends JPanel implements KeyListener {
         } else if ((pacDir == Direction.RIGHT)) {
             if (isSpotEmpty(grid, i + 1, j) && (i + 1 != grid.length - 2) && isSpotEmpty(grid, i + 1, j - 1)) {
                 pacman.setDirection(Direction.RIGHT);
+                if(grid[i + 1][j].getSpriteContained() instanceof Pellet)
+                {
+                    SoundEffects.contactDot();
+                }
                 grid[i][j].setPrevSprite(empty);
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(pacman);

@@ -77,6 +77,7 @@ public class SoundEffects {
         } else {
             playClose();
         }
+        openClose = !openClose;
     }
     
     public static void playClose()
