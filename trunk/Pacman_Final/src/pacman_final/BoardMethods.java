@@ -11,10 +11,9 @@ package pacman_final;
 public class BoardMethods {
 
     public static void setup(Tile[][] grid) {
-        for (int i = 2; i < grid[0].length; i = i + 2) {
-            drawDots(grid, 2, 27, i, i + 1);
-        }
-
+        drawDots(grid, 3, grid[0].length - 1, 2, 3);
+        drawDots(grid, 3, (grid[0].length - 1) / 2, 4, 5);
+        drawDots(grid, (grid[0].length - 1) / 2, grid.length, 4, 5);
         //I hate this part.
         drawBox(grid, 3, 13, 3, 13);
         drawBox(grid, 15, 28, 3, 13);
@@ -50,7 +49,6 @@ public class BoardMethods {
         drawBox(grid, 19, 50, grid.length - 32, grid.length - 29);
         drawBox(grid, grid.length - 14, grid.length - 1, grid.length - 35, grid.length - 24);
         drawBox(grid, grid.length - 14, grid.length - 4, grid.length - 22, grid.length - 17);
-        clearDots(grid);
     }
     /*
      * Precondition: The p1 and p2 variables must be in the top left corner of the desired
@@ -72,18 +70,8 @@ public class BoardMethods {
 
     public static void drawDots(Tile[][] grid, int p1, int p2, int pp1, int pp2) {
         for (int i = p1; i < p2; i = i + 2) {
-            for (int j = pp1; j < pp2; j = j + 2) {
+            for (int j = pp1; j < pp2; j = j + 1) {
                 grid[i][j].setSpriteContained(GUIPanel.dot);
-            }
-        }
-    }
-
-    public static void clearDots(Tile[][] grid) {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 2; j < grid[0].length; j++) {
-                if (grid[i][j].getSpriteContained().equals(GUIPanel.empty) && grid[i][j + 1].equals(new CollisionWall())) {
-                    grid[i][j].setSpriteContained(GUIPanel.empty);
-                }
             }
         }
     }
