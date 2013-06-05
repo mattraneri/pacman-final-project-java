@@ -22,31 +22,31 @@ public class BoardMethods {
 
         drawDots(grid, 4, grid[0].length - 4, 14, 14);
 
-	drawDots(grid, 14, 14, 4, 12);
-	drawDots(grid, grid[0].length / 2 + 7, grid[0].length / 2 + 7, 4, 12);
+        drawDots(grid, 14, 14, 4, 12);
+        drawDots(grid, grid[0].length / 2 + 7, grid[0].length / 2 + 7, 4, 12);
 
-	drawDots(grid, 29, 29, 4, 12);
-	drawDots(grid, grid[0].length / 2 + 21, grid[0].length / 2 + 21, 4, 12);
+        drawDots(grid, 29, 29, 4, 12);
+        drawDots(grid, grid[0].length / 2 + 21, grid[0].length / 2 + 21, 4, 12);
 
-	drawDots(grid, 4, 12, 21, 21);
-	drawDots(grid, grid[0].length - 11, grid[0].length - 3, 21, 21);
+        drawDots(grid, 4, 12, 21, 21);
+        drawDots(grid, grid[0].length - 11, grid[0].length - 3, 21, 21);
 
-	drawDots(grid, 14, 14, 16, 32);
-	drawDots(grid, grid[0].length - 13, grid[0].length - 13, 16, 32);
+        drawDots(grid, 14, 14, 16, 32);
+        drawDots(grid, grid[0].length - 13, grid[0].length - 13, 16, 32);
 
-	drawDots(grid, 18, 18, 16, 22);
-	drawDots(grid, grid[0].length - 17, grid[0].length - 17, 16, 32);
+        drawDots(grid, 18, 18, 16, 22);
+        drawDots(grid, grid[0].length - 17, grid[0].length - 17, 16, 32);
 
-	drawDots(grid, 20, 32, 22, 22);
-	drawDots(grid, 37, 49, 22, 22);
+        drawDots(grid, 20, 32, 22, 22);
+        drawDots(grid, 37, 49, 22, 22);
 
-	drawDots(grid, 33, 33, 24, 24);
-	drawDots(grid, 37, 37, 24, 24);
+        drawDots(grid, 33, 33, 24, 24);
+        drawDots(grid, 37, 37, 24, 24);
 
-	drawDots(grid, 18, 48, 26, 26);
+        drawDots(grid, 18, 48, 26, 26);
 
-	//middle horizontal pacdot line here
-	drawDots(grid, 2, grid[0].length - 2, 34, 34);
+        //middle horizontal pacdot line here
+        drawDots(grid, 2, grid[0].length - 2, 34, 34);
 
         //I hate this part.
         drawBox(grid, 3, 13, 3, 13);
