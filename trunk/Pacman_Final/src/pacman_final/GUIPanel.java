@@ -303,6 +303,9 @@ public class GUIPanel extends JPanel implements KeyListener {
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(pacman);
                 pacman.update();
+            } else if(grid[i][j - 2].getSpriteContained() instanceof Ghost)
+            {
+                pacmanDie();
             }
         } else if (pacDir == Direction.DOWN) {
             if (isSpotEmpty(grid, i, j + 1) && (j + 1 != grid[0].length - 2) && isSpotEmpty(grid, i - 1, j + 1)) {
@@ -311,6 +314,9 @@ public class GUIPanel extends JPanel implements KeyListener {
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(pacman);
                 pacman.update();
+            } else if(grid[i][j + 1].getSpriteContained() instanceof Ghost)
+            {
+                pacmanDie();
             }
         } else if (pacDir == Direction.LEFT) {
             if (isSpotEmpty(grid, i - 2, j) && (i - 2 != -1) && isSpotEmpty(grid, i - 2, j - 1)) {
@@ -319,6 +325,9 @@ public class GUIPanel extends JPanel implements KeyListener {
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(pacman);
                 pacman.update();
+            } else if(grid[i - 2][j].getSpriteContained() instanceof Ghost)
+            {
+                pacmanDie();
             }
         } else if ((pacDir == Direction.RIGHT)) {
             if (isSpotEmpty(grid, i + 1, j) && (i + 1 != grid.length - 2) && isSpotEmpty(grid, i + 1, j - 1)) {
@@ -327,6 +336,9 @@ public class GUIPanel extends JPanel implements KeyListener {
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(pacman);
                 pacman.update();
+            } else if(grid[i + 1][j].getSpriteContained() instanceof Ghost)
+            {
+                pacmanDie();
             }
         }
     }
