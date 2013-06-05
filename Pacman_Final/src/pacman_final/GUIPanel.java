@@ -31,6 +31,7 @@ public class GUIPanel extends JPanel implements KeyListener {
     int inkyJ;
     boolean updateThreadRun = false;
     public static EmptySprite empty = new EmptySprite();
+    public static Pellet dot = new Pellet();
     RedGhost blinky;
     PinkGhost pinky;
     YellowGhost clyde;
@@ -101,7 +102,7 @@ public class GUIPanel extends JPanel implements KeyListener {
     }
 
     public boolean isSpotEmpty(Tile[][] grid, int i, int j) {
-        if (grid[i][j].getSpriteContained().equals(GUIPanel.empty)) {
+        if (grid[i][j].getSpriteContained().equals(GUIPanel.empty) || grid[i][j].getSpriteContained().equals(GUIPanel.dot)) {
             return true;
         }
         return false;
@@ -280,6 +281,18 @@ public class GUIPanel extends JPanel implements KeyListener {
         blinky.update();
     }
 
+    
+    public boolean isPellet(int i, int j)
+    {
+        Tile t = grid[i][j];
+        Sprite s = t.getSpriteContained();
+        if(s != empty && s != blinky && s != inky && s != clyde && s != pinky && s != pacman && s != new CollisionWall())
+        {
+            return true;
+        }
+        return false;
+    }
+    
     public void movePac(int i, int j) {
         if (pacDir == Direction.UP) {
             //System.out.println("Got to if statement");
