@@ -103,7 +103,7 @@ public class GUIPanel extends JPanel implements KeyListener {
     }
 
     public boolean isSpotEmpty(Tile[][] grid, int i, int j) {
-        if (grid[i][j].getSpriteContained().equals(GUIPanel.empty) || grid[i][j].getSpriteContained().equals(GUIPanel.dot)) {
+        if (grid[i][j].getSpriteContained().equals(GUIPanel.empty) || grid[i][j].getSpriteContained().equals(GUIPanel.dot) || grid[i][j].getSpriteContained() instanceof Ghost) {
             return true;
         }
         return false;
