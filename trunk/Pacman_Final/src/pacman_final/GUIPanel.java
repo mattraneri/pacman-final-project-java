@@ -162,16 +162,27 @@ public class GUIPanel extends JPanel implements KeyListener {
         int togoj = gotoj + offsetj;
 
         inky.turnDir(grid, togoi, togoj, i, j);
-        if (inky.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
+        if (inky.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {if (grid[i][j - 2].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i][j - 1].setSpriteContained(inky);
         } else if (inky.getDirection() == Direction.LEFT && isSpotEmpty(grid, i - 1, j) && isSpotEmpty(grid, i - 2, j) && isSpotEmpty(grid, i - 2, j - 1)) {
+            if (grid[i - 2][j].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i - 1][j].setSpriteContained(inky);
         } else if (inky.getDirection() == Direction.DOWN && isSpotEmpty(grid, i, j + 1) && isSpotEmpty(grid, i - 1, j + 1)) {
+            if (grid[i][j + 1].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i][j + 1].setSpriteContained(inky);
         } else if (inky.getDirection() == Direction.RIGHT && isSpotEmpty(grid, i + 1, j) && isSpotEmpty(grid, i + 1, j - 1)) {
+            if (grid[i + 1][j].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i + 1][j].setSpriteContained(inky);
         } else {
@@ -189,15 +200,27 @@ public class GUIPanel extends JPanel implements KeyListener {
             clyde.turnDir(grid, grid.length - 1, grid[0].length - 1, i, j);
         }
         if (clyde.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
+            if (grid[i][j - 2].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i][j - 1].setSpriteContained(clyde);
         } else if (clyde.getDirection() == Direction.LEFT && isSpotEmpty(grid, i - 1, j) && isSpotEmpty(grid, i - 2, j) && isSpotEmpty(grid, i - 2, j - 1)) {
+            if (grid[i - 2][j].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i - 1][j].setSpriteContained(clyde);
         } else if (clyde.getDirection() == Direction.DOWN && isSpotEmpty(grid, i, j + 1) && isSpotEmpty(grid, i - 1, j + 1)) {
+            if (grid[i][j + 1].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i][j + 1].setSpriteContained(clyde);
         } else if (clyde.getDirection() == Direction.RIGHT && isSpotEmpty(grid, i + 1, j) && isSpotEmpty(grid, i + 1, j - 1)) {
+            if (grid[i + 1][j].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i + 1][j].setSpriteContained(clyde);
         } else {
@@ -228,15 +251,27 @@ public class GUIPanel extends JPanel implements KeyListener {
             pinky.turnDir(grid, paci, pacj + 4, i, j);
         }
         if (pinky.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
+            if (grid[i][j - 2].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i][j - 1].setSpriteContained(pinky);
         } else if (pinky.getDirection() == Direction.LEFT && isSpotEmpty(grid, i - 1, j) && isSpotEmpty(grid, i - 2, j) && isSpotEmpty(grid, i - 2, j - 1)) {
+            if (grid[i - 2][j].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i - 1][j].setSpriteContained(pinky);
         } else if (pinky.getDirection() == Direction.DOWN && isSpotEmpty(grid, i, j + 1) && isSpotEmpty(grid, i - 1, j + 1)) {
+            if (grid[i][j + 1].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i][j + 1].setSpriteContained(pinky);
         } else if (pinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid, i + 1, j) && isSpotEmpty(grid, i + 1, j - 1)) {
+            if (grid[i + 1][j].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i + 1][j].setSpriteContained(pinky);
         } else {
@@ -265,15 +300,27 @@ public class GUIPanel extends JPanel implements KeyListener {
     public void moveBlinky(int i, int j) {
         blinky.turnDir(grid, paci, pacj, i, j);
         if (blinky.getDirection() == Direction.UP && isSpotEmpty(grid, i, j - 1) && isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
+            if (grid[i][j - 2].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i][j - 1].setSpriteContained(blinky);
         } else if (blinky.getDirection() == Direction.LEFT && isSpotEmpty(grid, i - 1, j) && isSpotEmpty(grid, i - 2, j) && isSpotEmpty(grid, i - 2, j - 1)) {
+            if (grid[i - 2][j].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i - 1][j].setSpriteContained(blinky);
         } else if (blinky.getDirection() == Direction.DOWN && isSpotEmpty(grid, i, j + 1) && isSpotEmpty(grid, i - 1, j + 1)) {
+            if (grid[i][j + 1].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i][j + 1].setSpriteContained(blinky);
         } else if (blinky.getDirection() == Direction.RIGHT && isSpotEmpty(grid, i + 1, j) && isSpotEmpty(grid, i + 1, j - 1)) {
+            if (grid[i + 1][j].getSpriteContained() instanceof Pacman) {
+                pacmanDie();
+            }
             grid[i][j].setSpriteContained(grid[i][j].getPrevSprite());
             grid[i + 1][j].setSpriteContained(blinky);
         } else {
@@ -282,78 +329,67 @@ public class GUIPanel extends JPanel implements KeyListener {
         blinky.update();
     }
 
-    
-    public boolean isPellet(int i, int j)
-    {
+    public boolean isPellet(int i, int j) {
         Tile t = grid[i][j];
         Sprite s = t.getSpriteContained();
-        if(s != empty && s != blinky && s != inky && s != clyde && s != pinky && s != pacman && s != new CollisionWall())
-        {
+        if (s != empty && s != blinky && s != inky && s != clyde && s != pinky && s != pacman && s != new CollisionWall()) {
             return true;
         }
         return false;
     }
-    
+
     public void movePac(int i, int j) {
         if (pacDir == Direction.UP) {
             //System.out.println("Got to if statement");
             if (isSpotEmpty(grid, i - 1, j - 2) && isSpotEmpty(grid, i, j - 2)) {
                 pacman.setDirection(Direction.UP);
-                if(grid[i][j - 2].getSpriteContained() instanceof Pellet)
-                {
+                if (grid[i][j - 2].getSpriteContained() instanceof Pellet) {
                     SoundEffects.contactDot();
                 }
                 grid[i][j].setPrevSprite(empty);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j - 1].setSpriteContained(pacman);
                 pacman.update();
-            } else if(grid[i][j - 2].getSpriteContained() instanceof Ghost)
-            {
+            } else if (grid[i][j - 2].getSpriteContained() instanceof Ghost) {
                 pacmanDie();
             }
         } else if (pacDir == Direction.DOWN) {
             if (isSpotEmpty(grid, i, j + 1) && (j + 1 != grid[0].length - 2) && isSpotEmpty(grid, i - 1, j + 1)) {
                 pacman.setDirection(Direction.DOWN);
-                if(grid[i][j + 1].getSpriteContained() instanceof Pellet)
-                {
+                if (grid[i][j + 1].getSpriteContained() instanceof Pellet) {
                     SoundEffects.contactDot();
                 }
                 grid[i][j].setPrevSprite(empty);
                 grid[i][j].setSpriteContained(empty);
                 grid[i][j + 1].setSpriteContained(pacman);
                 pacman.update();
-            } else if(grid[i][j + 1].getSpriteContained() instanceof Ghost)
-            {
+            } else if (grid[i][j + 1].getSpriteContained() instanceof Ghost) {
                 pacmanDie();
             }
         } else if (pacDir == Direction.LEFT) {
             if (isSpotEmpty(grid, i - 2, j) && (i - 2 != -1) && isSpotEmpty(grid, i - 2, j - 1)) {
                 pacman.setDirection(Direction.LEFT);
-                if(grid[i - 2][j].getSpriteContained() instanceof Pellet)
-                {
+                if (grid[i - 2][j].getSpriteContained() instanceof Pellet) {
                     SoundEffects.contactDot();
                 }
                 grid[i][j].setPrevSprite(empty);
                 grid[i][j].setSpriteContained(empty);
                 grid[i - 1][j].setSpriteContained(pacman);
                 pacman.update();
-            } else if(grid[i - 2][j].getSpriteContained() instanceof Ghost)
-            {
+            } else if (grid[i - 2][j].getSpriteContained() instanceof Ghost) {
                 pacmanDie();
             }
         } else if ((pacDir == Direction.RIGHT)) {
             if (isSpotEmpty(grid, i + 1, j) && (i + 1 != grid.length - 2) && isSpotEmpty(grid, i + 1, j - 1)) {
                 pacman.setDirection(Direction.RIGHT);
-                if(grid[i + 1][j].getSpriteContained() instanceof Pellet)
-                {
+                if (grid[i + 1][j].getSpriteContained() instanceof Pellet) {
                     SoundEffects.contactDot();
                 }
                 grid[i][j].setPrevSprite(empty);
                 grid[i][j].setSpriteContained(empty);
                 grid[i + 1][j].setSpriteContained(pacman);
                 pacman.update();
-            } else if(grid[i + 1][j].getSpriteContained() instanceof Ghost)
-            {
+            } else if (grid[i + 1][j].getSpriteContained() instanceof Ghost) {
                 pacmanDie();
             }
         }
@@ -431,7 +467,7 @@ public class GUIPanel extends JPanel implements KeyListener {
             //pacman.setDirection(Direction.RIGHT);
             //System.out.println("right");
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE && updateThreadRun == false) {
-            
+
             updateThread t = new updateThread();
             t.start();
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
