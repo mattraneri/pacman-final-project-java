@@ -48,6 +48,39 @@ public class BoardMethods {
         //middle horizontal pacdot line here
         drawDots(grid, 2, grid[0].length - 2, 34, 34);
 
+	//aaand now the bottom half
+        drawDots(grid, 2, 2, grid.length - 23, grid.length - 5);
+        drawDots(grid, grid[0].length - 1, grid[0].length - 1, grid.length - 23, grid.length - 5);
+
+        drawDots(grid, 4, 30, grid.length - 5, grid.length - 5);
+        drawDots(grid, grid[0].length / 2 + 7, grid[0].length / 2 + 31, grid.length - 5, grid.length - 5);
+
+        drawDots(grid, 4, grid[0].length - 4, grid.length - 16, grid.length - 16);
+
+        drawDots(grid, 14, 14, grid.length - 15, grid.length - 7);
+        drawDots(grid, grid[0].length / 2 + 7, grid[0].length / 2 + 7, grid.length - 15, grid.length - 7);
+
+        drawDots(grid, 29, 29, grid.length - 15, grid.length - 7);
+        drawDots(grid, grid[0].length / 2 + 21, grid[0].length / 2 + 21, grid.length - 15, grid.length - 7);
+
+        drawDots(grid, 4, 12, grid.length - 23, grid.length - 23);
+        drawDots(grid, grid[0].length - 11, grid[0].length - 3, grid.length - 23, grid.length - 23);
+
+        drawDots(grid, 14, 14, grid.length - 35, grid.length - 19);
+        drawDots(grid, grid[0].length - 13, grid[0].length - 13, grid.length - 35, grid.length - 19);
+
+//        drawDots(grid, 18, 18, grid.length - 25, grid.length - 19);
+//        drawDots(grid, grid[0].length - 17, grid[0].length - 17, grid.length - 35, grid.length - 19);
+
+/*        drawDots(grid, 20, 32, 22, 22);
+        drawDots(grid, 37, 49, 22, 22);
+
+        drawDots(grid, 33, 33, 24, 24);
+        drawDots(grid, 37, 37, 24, 24);
+
+        drawDots(grid, 18, 48, 26, 26);
+*/
+
         //I hate this part.
         drawBox(grid, 3, 13, 3, 13);
         drawBox(grid, 15, 28, 3, 13);
