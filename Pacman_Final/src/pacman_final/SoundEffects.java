@@ -10,6 +10,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.net.URL;
 
 /**
  *
@@ -19,49 +20,29 @@ public class SoundEffects {
     
     static Clip alarm = null;
     static boolean openClose = false;
+
+    public static void play(String effect) {
+	try {
+	    URL resource = SoundEffects.class.getResource("/sounds/" + effect + ".wav");
+	    AudioInputStream input = AudioSystem.getAudioInputStream(resource);
+	    Clip clip = AudioSystem.getClip();
+	    clip.open(input);
+	    clip.start();
+	} catch (Exception e) {
+	    throw new RuntimeException(e);
+	}
+    }
+
     public static void playEntry() {
-        try {
-            Clip clip = AudioSystem.getClip();
-            AudioInputStream input;
-            input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/start.wav"));
-            clip.open(input);
-            clip.start();
-        } catch (LineUnavailableException e) {
-            System.out.println(e.getMessage());
-        } catch (UnsupportedAudioFileException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+	play("start");
     }
 
     public static void playCredit() {
-        try {
-            Clip clip = AudioSystem.getClip();
-            AudioInputStream input;
-            input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/credit.wav"));
-            clip.open(input);
-            clip.start();
-        } catch (LineUnavailableException e) {
-            System.out.println(e.getMessage());
-        } catch (UnsupportedAudioFileException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+	play("credit");
     }
 
     public static void startAlarm() {
-        try {
-            alarm = AudioSystem.getClip();
-            AudioInputStream input;
-            input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/ghost_alarm.wav"));
-            alarm.open(input);
-            alarm.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
+	play("ghost_alarm");
     }
     
     public static void stopAlarm() {
@@ -82,51 +63,15 @@ public class SoundEffects {
     
     public static void playClose()
     {
-        try {
-            Clip clip = AudioSystem.getClip();
-            AudioInputStream input;
-            input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/pacman_close.wav"));
-            clip.open(input);
-            clip.start();
-        } catch (LineUnavailableException e) {
-            System.out.println(e.getMessage());
-        } catch (UnsupportedAudioFileException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+	play("pacman_close");
     }
     
     public static void playOpen() {
-        try {
-            Clip clip = AudioSystem.getClip();
-            AudioInputStream input;
-            input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/pacman_open.wav"));
-            clip.open(input);
-            clip.start();
-        } catch (LineUnavailableException e) {
-            System.out.println(e.getMessage());
-        } catch (UnsupportedAudioFileException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+	play("pacman_open");
     }
     
     public static void playPacmanDead()
     {
-        try {
-            Clip clip = AudioSystem.getClip();
-            AudioInputStream input;
-            input = AudioSystem.getAudioInputStream(SoundEffects.class.getResource("/sounds/pac_die.wav"));
-            clip.open(input);
-            clip.start();
-        } catch (LineUnavailableException e) {
-            System.out.println(e.getMessage());
-        } catch (UnsupportedAudioFileException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+	play("pac_die");
     }
 }
