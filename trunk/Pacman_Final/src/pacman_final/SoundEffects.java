@@ -52,7 +52,7 @@ public class SoundEffects {
     
     public static void contactDot()
     {
-        if(openClose == false)
+        if(!openClose)
         {
             playOpen();
         } else {
