@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  *
  * @author matt
  */
-public class Ghost extends Sprite {
+public abstract class Ghost extends Sprite {
 
     private Image currentSprite;
     private Image upSprite1;
@@ -105,6 +105,22 @@ public class Ghost extends Sprite {
         g.drawImage(currentSprite, xPos - 7, yPos - 7, null);
     }
 
+    public abstract void move(int i, int j, Pacman pacman, Tile[][] grid, int paci, int pacj);
+    
+    public int reverse(int dir) {
+        if (dir == 0) {
+            return 1;
+        } else if (dir == 1) {
+            return 0;
+        } else if (dir == 2) {
+            return 3;
+        } else if (dir == 3) {
+            return 2;
+        }
+        return -1;
+    }
+    
+    
     /**
      * @return the currentSprite
      */
